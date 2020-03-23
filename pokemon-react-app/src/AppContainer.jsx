@@ -5,7 +5,9 @@ export default class AppContainer extends Component {
         super(props)
     
         this.state = {
-            dataList:[]
+            dataList :{
+                results:[]
+            }
              
         }
     }
@@ -20,11 +22,16 @@ export default class AppContainer extends Component {
         this.setState({dataList:json})
     }
     render() {console.log(this.state)
+       
 
         return (
-            <div>
+            <div className ="parent">
                 {this.state.dataList.results.map((poke,index)=>{
-                    return(<div><p>{poke.name}</p></div>)
+                    let pokemon_url_parts = poke.url.split('/');
+                    let pokemon_id = pokemon_url_parts[6];
+                    let pokemon_img_href =`/img/${pokemon_id}.png`;
+                    return(<div key = {index}><p>{poke.name}</p>
+                    <img src= {pokemon_img_href} alt={poke.name}/></div>)
                 })}
             </div>
         )
